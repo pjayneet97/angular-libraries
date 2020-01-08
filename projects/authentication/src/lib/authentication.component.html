@@ -1,0 +1,115 @@
+<div id="recaptcha"></div>
+<ng-container *ngIf="loading==false && !auth.isAuthenticated()">
+<!-- <button (click)="auth.mode='emaillogin'">Email Login</button>
+<button (click)="auth.mode='emailsignup'">Email signup</button>
+<button (click)="auth.mode='phoneauth'">phone Login</button> -->
+<form (ngSubmit)="signInWithEmail(siginform.value)" #siginform="ngForm" *ngIf="auth.mode=='emaillogin'">
+<ul style="max-width: 380px;padding: 0px;margin-left: -2rem;margin-right: -2rem;margin-top: -2rem;margin-bottom: 4rem;">
+    <li (click)="auth.mode='emaillogin'" style="display: inline-block;width: 33%;text-align: center;background-color: #4A89DC;color: white;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign In</li>
+    <li (click)="auth.mode='emailsignup'" style="display: inline-block;width: 33%;text-align: center;border-left: #636363 solid 1px;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign Up</li>
+    <li (click)="auth.mode='phoneauth'" style="display: inline-block;width: 33%;text-align: center;border-left:#636363 solid 1px;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Phone</li>
+</ul>
+  <div class="group">
+    <input ngModel type="email" name="email"><span class="highlight"></span><span class="bar"></span>
+    <label>Email</label>
+  </div>
+  <div class="group">
+    <input ngModel type="password" name="password"><span class="highlight"></span><span class="bar"></span>
+    <label>Password</label>
+  </div>
+  <button type="submit" class="button buttonBlue">Sign In
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <br>
+  <h2 style="color: #636363;text-align: center;">OR</h2>
+  <button (click)="signInWithGoogle()" class="loginBtn loginBtn--google">
+    Login with Google
+  </button>
+</form>
+
+<form (ngSubmit)="signupwithemail(signupform.value)" #signupform="ngForm" *ngIf="auth.mode=='emailsignup'">
+    <ul style="max-width: 380px;padding: 0px;margin-left: -2rem;margin-right: -2rem;margin-top: -2rem;margin-bottom: 4rem;">
+        <li (click)="auth.mode='emaillogin'" style="display: inline-block;width: 33%;text-align: center;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign In</li>
+        <li (click)="auth.mode='emailsignup'" style="display: inline-block;width: 33%;text-align: center;border-left: #636363 solid 1px;background-color: #4A89DC;color: white;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign Up</li>
+        <li (click)="auth.mode='phoneauth'" style="display: inline-block;width: 33%;text-align: center;border-left:#636363 solid 1px;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Phone</li>
+    </ul>
+  <div class="group">
+    <input ngModel type="email" name="email"><span class="highlight"></span><span class="bar"></span>
+    <label>Email</label>
+  </div>
+  <div class="group">
+    <input ngModel type="password" name="password"><span class="highlight"></span><span class="bar"></span>
+    <label>Password</label>
+  </div>
+  <div class="group">
+    <input ngModel type="text" name="mane"><span class="highlight"></span><span class="bar"></span>
+    <label>Name</label>
+  </div>
+  <button type="submit" class="button buttonBlue">Create Account
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <br>
+  <h2 style="color: #636363;text-align: center;">OR</h2>
+  <button (click)="signInWithGoogle()" class="loginBtn loginBtn--google">
+    SignUp with Google
+  </button>
+</form>
+
+<form (ngSubmit)="sendOTP(signform.value)" #signform="ngForm" *ngIf="auth.mode=='phoneauth'">
+    <ul style="max-width: 380px;padding: 0px;margin-left: -2rem;margin-right: -2rem;margin-top: -2rem;margin-bottom: 4rem;">
+        <li (click)="auth.mode='emaillogin'" style="display: inline-block;width: 33%;text-align: center;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign In</li>
+        <li (click)="auth.mode='emailsignup'" style="display: inline-block;width: 33%;text-align: center;border-left: #636363 solid 1px;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign Up</li>
+        <li (click)="auth.mode='phoneauth'" style="display: inline-block;width: 33%;text-align: center;border-left:#636363 solid 1px;background-color: #4A89DC;color: white;font-size: large;padding-top: 12px;padding-bottom: 12px;">Phone</li>
+    </ul>
+  <div class="group">
+    <input ngModel type="number" name="phone"><span class="highlight"></span><span class="bar"></span>
+    <label>Phone Number</label>
+  </div>
+  <button type="submit" class="button buttonBlue">Send OTP
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+</form>
+<form (ngSubmit)="varify(otpform.value.otp)" #otpform="ngForm" *ngIf="auth.mode=='verifyotp'">
+    <ul style="max-width: 380px;padding: 0px;margin-left: -2rem;margin-right: -2rem;margin-top: -2rem;margin-bottom: 4rem;">
+        <li (click)="auth.mode='emaillogin'" style="display: inline-block;width: 33%;text-align: center;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign In</li>
+        <li (click)="auth.mode='emailsignup'" style="display: inline-block;width: 33%;text-align: center;border-left: #636363 solid 1px;background-color: #D2D8D8;color: #636363;font-size: large;padding-top: 12px;padding-bottom: 12px;">Sign Up</li>
+        <li (click)="auth.mode='phoneauth'" style="display: inline-block;width: 33%;text-align: center;border-left:#636363 solid 1px;background-color: #4A89DC;color: white;font-size: large;padding-top: 12px;padding-bottom: 12px;">Phone</li>
+    </ul>
+  <div class="group">
+    <input ngModel type="number" name="otp"><span class="highlight"></span><span class="bar"></span>
+    <label>Enter OTP</label>
+  </div>
+  <button type="submit" class="button buttonBlue">Verify OTP
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+</form>
+
+<form *ngIf="auth.mode=='emailverify'">
+  <div class="group">
+    Please Verify your email using the verification link send to your email
+  </div>
+  <button (click)="auth.sendEmailVerification()" type="button" class="button buttonBlue">Resend Verification Email
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <button (click)="logOut()" type="button" class="button buttonBlue">LogOut
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+</form>
+</ng-container>
+<ng-container *ngIf="loading==true">
+    <form>
+        <div style="padding-left: 33%;" class="group">
+            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+      </form>
+</ng-container>
+
+<form *ngIf="auth.isAuthenticated()">
+  <div class="group">
+    Logged In Successfully
+    <button (click)="logOut()" type="button" class="button buttonBlue">LogOut
+      <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+    </button>
+  </div>
+</form>
+

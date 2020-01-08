@@ -2,5 +2,198 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "auth": {
+      "projectType": "library",
+      "root": "projects/auth",
+      "sourceRoot": "projects/auth/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/auth/tsconfig.lib.json",
+            "project": "projects/auth/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/auth/src/test.ts",
+            "tsConfig": "projects/auth/tsconfig.spec.json",
+            "karmaConfig": "projects/auth/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/auth/tsconfig.lib.json",
+              "projects/auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "authtest": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/authtest",
+      "sourceRoot": "projects/authtest/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/authtest",
+            "index": "projects/authtest/src/index.html",
+            "main": "projects/authtest/src/main.ts",
+            "polyfills": "projects/authtest/src/polyfills.ts",
+            "tsConfig": "projects/authtest/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/authtest/src/favicon.ico",
+              "projects/authtest/src/assets"
+            ],
+            "styles": [
+              "projects/authtest/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/authtest/src/environments/environment.ts",
+                  "with": "projects/authtest/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "authtest:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "authtest:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "authtest:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/authtest/src/test.ts",
+            "polyfills": "projects/authtest/src/polyfills.ts",
+            "tsConfig": "projects/authtest/tsconfig.spec.json",
+            "karmaConfig": "projects/authtest/karma.conf.js",
+            "assets": [
+              "projects/authtest/src/favicon.ico",
+              "projects/authtest/src/assets"
+            ],
+            "styles": [
+              "projects/authtest/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/authtest/tsconfig.app.json",
+              "projects/authtest/tsconfig.spec.json",
+              "projects/authtest/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/authtest/e2e/protractor.conf.js",
+            "devServerTarget": "authtest:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "authtest:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "authentication": {
+      "projectType": "library",
+      "root": "projects/authentication",
+      "sourceRoot": "projects/authentication/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/authentication/tsconfig.lib.json",
+            "project": "projects/authentication/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/authentication/src/test.ts",
+            "tsConfig": "projects/authentication/tsconfig.spec.json",
+            "karmaConfig": "projects/authentication/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/authentication/tsconfig.lib.json",
+              "projects/authentication/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "auth"
 }
