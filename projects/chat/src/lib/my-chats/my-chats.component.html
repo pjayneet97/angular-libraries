@@ -1,0 +1,27 @@
+<!-- <div (click)="chatService.getMessagesOfChatByChatRoomId(chatDoc.id)" *ngFor="let chatDoc of chatService.mychats">{{chatDoc.members}}</div>
+ -->
+ <ons-toolbar>
+    <div class="center">My Chats</div>
+    <div class="right">
+        <ons-toolbar-button>
+          <ons-icon (click)="this.chatService.logOut()" icon="ion-ios-search"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+  </ons-toolbar>
+  <div class="background"></div>
+  <div class="content" class="normal-page">
+    <ons-list>
+        <ons-list-header>All Contacts</ons-list-header>
+        <ng-container *ngFor="let chat of chatService.mychats">
+            <ons-list-item (click)="push(chat.id)">
+                <div class="left">
+                    <img class="list-item__thumbnail" src="http://placekitten.com/g/40/40">
+                  </div>
+                  <div class="center">
+                    <span class="list-item__title">{{chat.name}}</span><span class="list-item__subtitle">{{chat.lastMessageTimestamp.toDate() | date:'short'}}</span>
+                  </div>
+            </ons-list-item>
+        </ng-container> 
+    </ons-list>
+  </div>
+ 

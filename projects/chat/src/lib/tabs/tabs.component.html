@@ -1,0 +1,32 @@
+<!-- <button (click)="logout()">LogOut</button>
+<lib-my-chats *ngIf="chatService.viewMode=='allChats'"></lib-my-chats>
+<lib-view-chat *ngIf="chatService.viewMode=='singleChat'"></lib-view-chat>
+<lib-all-contacts *ngIf="chatService.viewMode=='contacts'"></lib-all-contacts>
+<button (click)="chatService.viewMode='contacts'">Contacts</button>
+<ons-button>Click Me</ons-button> -->
+
+<ng-container *ngIf="chatService.profileCompleted">
+    <ons-tabbar>
+        <div class="tabbar__content">
+        </div>
+        <div class="tabbar">
+          <ons-tab label="Page1" icon="ion-ios-browsers" [page]="tab1"></ons-tab>
+          <ons-tab label="Page2" icon="ion-ios-search" (click)="push()" active></ons-tab>
+        </div>
+      </ons-tabbar>
+</ng-container>
+<ng-container *ngIf="!chatService.profileCompleted">
+        <ons-toolbar>
+          <div class="center">Complete Profile</div>
+        </ons-toolbar>
+        <br><br><br>
+        <div class="background"></div>
+
+        <div class="content" class="normal-page">
+            <div style="margin: 10px">
+                <ons-input placeholder="What is Your Name" [(value)]="name"></ons-input>
+                <br><br>
+                <ons-button (click)="updateProfile()">Update Profile</ons-button>
+            </div>
+        </div>
+</ng-container>
